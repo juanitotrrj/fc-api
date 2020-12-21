@@ -1,0 +1,353 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Forecast API",
+        "description": "Forecast API",
+        "termsOfService": "",
+        "contact": {
+            "email": "juanitotarroja@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "L5 Swagger OpenApi dynamic host server"
+        }
+    ],
+    "paths": {
+        "/api/v1/forecasts/{id}/costs": {
+            "get": {
+                "tags": [
+                    "Costs"
+                ],
+                "summary": "Get list of Costs per Month",
+                "description": "Returns list of Costs per Month in a Forecast",
+                "operationId": "",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Forecast ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Target Page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Rows per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "current_page": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "forecast_id": 1,
+                                            "month": 1,
+                                            "year": 2020,
+                                            "total_studies": 31000,
+                                            "total_cost": 94.77,
+                                            "created_at": "2020-12-13 18:21:22",
+                                            "updated_at": "2020-12-13 18:21:22"
+                                        }
+                                    ],
+                                    "from": 1,
+                                    "last_page": 12,
+                                    "per_page": 1,
+                                    "to": 1,
+                                    "total": 12
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "errors": {
+                                        "forecast_id": [
+                                            "The forecast id must be an integer."
+                                        ],
+                                        "page": [
+                                            "The page must be an integer."
+                                        ],
+                                        "per_page": [
+                                            "The per page must be an integer."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/forecasts": {
+            "get": {
+                "tags": [
+                    "Forecasts"
+                ],
+                "summary": "Get list of Forecasts",
+                "description": "Returns list of created Forecasts",
+                "operationId": "",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Target Page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Rows per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "current_page": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "June 2020 to June 2021 Estimated Cost",
+                                            "studies_per_day": 1000,
+                                            "growth_per_month": 0.03,
+                                            "number_of_months": 12,
+                                            "created_at": "2020-12-13 18:21:22",
+                                            "updated_at": "2020-12-13 18:21:22"
+                                        }
+                                    ],
+                                    "from": 1,
+                                    "last_page": 4,
+                                    "per_page": 1,
+                                    "to": 1,
+                                    "total": 4
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "errors": {
+                                        "page": [
+                                            "The page must be an integer."
+                                        ],
+                                        "per_page": [
+                                            "The per page must be an integer."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Forecasts"
+                ],
+                "summary": "Compute estimated costs",
+                "description": "Compute estimated costs based on studies per day, growth per month, and number of months specified.",
+                "operationId": "",
+                "requestBody": {
+                    "description": "ForecastsPostRequest",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ForecastsPostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "data": {
+                                        "id": 5,
+                                        "name": "December 2020 to November 2025 Estimated Cost",
+                                        "studies_per_day": 1000000,
+                                        "growth_per_month": 0.06,
+                                        "number_of_months": 60,
+                                        "created_at": "2020-12-13 18:21:22",
+                                        "updated_at": "2020-12-13 18:21:22"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "The given data was invalid.",
+                                    "errors": {
+                                        "name": [
+                                            "The name must be a string."
+                                        ],
+                                        "studies_per_day": [
+                                            "The studies per day must be an integer."
+                                        ],
+                                        "growth_per_month": [
+                                            "The growth per month must be a number."
+                                        ],
+                                        "number_of_months": [
+                                            "The number of months must be an integer."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ForecastsPostRequest": {
+                "title": "ForecastsPostRequest",
+                "description": "ForecastsPostRequest",
+                "properties": {
+                    "name": {
+                        "title": "forecast_name",
+                        "description": "Forecast Name",
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "studies_per_day": {
+                        "title": "studies_per_day",
+                        "description": "Estimated number of studies per day",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "growth_per_month": {
+                        "title": "growth_per_month",
+                        "description": "Estimated growth percentage per month, expressed in decimals (e.g. 1.00, 0.50, etc)",
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "number_of_months": {
+                        "title": "number_of_months",
+                        "description": "Total number of Months to compute estimates for, starting with CURRENT MONTH",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "type": "object"
+            },
+            "HttpResponseNotFound": {
+                "title": "HttpResponseNotFound",
+                "description": "Not found http response",
+                "properties": {
+                    "message": {
+                        "description": "Common schemas",
+                        "type": "string"
+                    },
+                    "status_code": {
+                        "description": "Common schemas",
+                        "type": "integer",
+                        "format": "int32",
+                        "example": "404"
+                    }
+                },
+                "type": "object"
+            },
+            "HttpResponseNotAcceptable": {
+                "title": "HttpResponseNotAcceptable",
+                "description": "Not acceptable http response",
+                "properties": {
+                    "message": {
+                        "description": "Common schemas",
+                        "type": "string"
+                    },
+                    "status_code": {
+                        "description": "Common schemas",
+                        "type": "integer",
+                        "format": "int32",
+                        "example": "406"
+                    }
+                },
+                "type": "object"
+            },
+            "HttpResponseValidationError": {
+                "title": "HttpResponseValidationError",
+                "description": "Validation Error http response",
+                "properties": {
+                    "message": {
+                        "description": "Common schemas",
+                        "type": "string"
+                    },
+                    "status_code": {
+                        "description": "Common schemas",
+                        "type": "integer",
+                        "format": "int32",
+                        "example": "422"
+                    },
+                    "errors": {
+                        "description": "Common schemas",
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "Bearer": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\ForecastController;
+use App\Http\Controllers\API\CostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::prefix('v1')->group(function () {
+    Route::apiResources([
+        'forecasts' => ForecastController::class,
+    ]);
+    Route::resource('forecasts/{id}/costs', CostController::class)->only(['index']);
 });
