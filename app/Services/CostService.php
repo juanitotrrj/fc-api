@@ -38,7 +38,7 @@ class CostService
      * @param int $daysInMonth Total number of days in a month
      * @return string Total cost of resources in this month
      */
-    public function getTotalCost(int $studiesCount, int $daysInMonth)
+    public function getTotalCost(string $studiesCount, int $daysInMonth)
     {
         $totalStorageCost = $this->computeStorageCostForThisMonth($studiesCount);
         $totalRamCost = $this->computeRamCostForThisMonth($studiesCount, $daysInMonth);
@@ -52,7 +52,7 @@ class CostService
      * @param int $studiesCount Total number of studies in a month
      * @return string Total cost of storage resources in this month
      */
-    public function computeStorageCostForThisMonth(int $studiesCount)
+    public function computeStorageCostForThisMonth(string $studiesCount)
     {
         $totalStorageSizeInMB = bcmul(
             strval($studiesCount),
@@ -75,7 +75,7 @@ class CostService
      * @param int $daysInMonth Total number of days in a month
      * @return string Total cost of RAM resources in this month
      */
-    public function computeRamCostForThisMonth(int $studiesCount, int $daysInMonth)
+    public function computeRamCostForThisMonth(string $studiesCount, int $daysInMonth)
     {
         $costPerGBPerMonth = bcmul(strval($daysInMonth), strval(Cost::RAM_COST_PER_GB_PER_DAY_USD), 50);
         $totalRamSizeInMBThisMonth = bcmul(

@@ -28,7 +28,7 @@ class ProcessCost implements ShouldQueue
      */
     public function __construct(
         int $forecastId,
-        int $numberOfStudiesOnThisMonth,
+        string $numberOfStudiesOnThisMonth,
         int $daysInThisMonth,
         int $month,
         int $year
