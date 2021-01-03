@@ -247,6 +247,178 @@
                     }
                 }
             }
+        },
+        "/api/v1/forecasts/{forecast_id}": {
+            "get": {
+                "tags": [
+                    "Forecasts"
+                ],
+                "summary": "Get Forecast by ID",
+                "description": "Returns Forecast details",
+                "operationId": "",
+                "parameters": [
+                    {
+                        "name": "forecast_id",
+                        "in": "path",
+                        "description": "Forecast ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "name": "June 2020 to June 2021 Estimated Cost",
+                                        "studies_per_day": 1000,
+                                        "growth_per_month": 0.03,
+                                        "number_of_months": 12,
+                                        "created_at": "2020-12-13 18:21:22",
+                                        "updated_at": "2020-12-13 18:21:22"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "errors": {
+                                        "id": [
+                                            "The id must be an integer."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Forecasts"
+                ],
+                "summary": "Update estimated costs",
+                "description": "Update estimated costs based on studies per day, growth per month, and number of months specified.",
+                "operationId": "",
+                "parameters": [
+                    {
+                        "name": "forecast_id",
+                        "in": "path",
+                        "description": "Forecast ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "ForecastsPutRequest",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ForecastsPutRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "data": {
+                                        "id": 5,
+                                        "name": "December 2020 to November 2025 Estimated Cost",
+                                        "studies_per_day": 1000000,
+                                        "growth_per_month": 0.06,
+                                        "number_of_months": 60,
+                                        "created_at": "2020-12-13 18:21:22",
+                                        "updated_at": "2020-12-13 18:21:22"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "The given data was invalid.",
+                                    "errors": {
+                                        "name": [
+                                            "The name must be a string."
+                                        ],
+                                        "studies_per_day": [
+                                            "The studies per day must be an integer."
+                                        ],
+                                        "growth_per_month": [
+                                            "The growth per month must be a number."
+                                        ],
+                                        "number_of_months": [
+                                            "The number of months must be an integer."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Forecasts"
+                ],
+                "summary": "Delete Forecast by ID",
+                "description": "Deletes Forecasts by ID",
+                "operationId": "",
+                "parameters": [
+                    {
+                        "name": "forecast_id",
+                        "in": "path",
+                        "description": "Forecast ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "errors": {
+                                        "id": [
+                                            "The id must be an integer."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -254,6 +426,37 @@
             "ForecastsPostRequest": {
                 "title": "ForecastsPostRequest",
                 "description": "ForecastsPostRequest",
+                "properties": {
+                    "name": {
+                        "title": "forecast_name",
+                        "description": "Forecast Name",
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "studies_per_day": {
+                        "title": "studies_per_day",
+                        "description": "Estimated number of studies per day",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "growth_per_month": {
+                        "title": "growth_per_month",
+                        "description": "Estimated growth percentage per month, expressed in decimals (e.g. 1.00, 0.50, etc)",
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "number_of_months": {
+                        "title": "number_of_months",
+                        "description": "Total number of Months to compute estimates for, starting with CURRENT MONTH",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "type": "object"
+            },
+            "ForecastsPutRequest": {
+                "title": "ForecastsPutRequest",
+                "description": "ForecastsPutRequest",
                 "properties": {
                     "name": {
                         "title": "forecast_name",

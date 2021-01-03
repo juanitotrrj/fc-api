@@ -28,4 +28,9 @@ class Cost extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'total_cost' => 'double',
     ];
+
+    public function forecast()
+    {
+        return $this->belongsTo(Forecast::class);
+    }
 }

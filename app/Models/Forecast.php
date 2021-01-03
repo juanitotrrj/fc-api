@@ -21,4 +21,9 @@ class Forecast extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'growth_per_month' => 'double',
     ];
+
+    public function costs()
+    {
+        return $this->hasMany(Cost::class);
+    }
 }
