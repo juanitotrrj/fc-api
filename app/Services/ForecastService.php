@@ -47,7 +47,7 @@ class ForecastService
         $forecast->update($attributes);
         $forecast->refresh();
 
-        if (Arr::hasAny($array, ['studies_per_day','growth_per_month','number_of_months'])) {
+        if (Arr::hasAny($attributes, ['studies_per_day','growth_per_month','number_of_months'])) {
             ProcessForecast::dispatch(
                 $forecast->id,
                 $forecast->studies_per_day,

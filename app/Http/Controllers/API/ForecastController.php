@@ -451,7 +451,7 @@ class ForecastController extends Controller
 
         $validator = Validator::make($attributes, [
             'id' => 'integer|exists:forecasts,id',
-            'name' => 'string|unique:forecasts,name',
+            'name' => 'string',
             'studies_per_day' => 'integer',
             'growth_per_month' => 'numeric',
             'number_of_months' => 'integer',
