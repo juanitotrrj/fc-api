@@ -27,14 +27,6 @@ use OpenApi\Annotations as OA;
  */
 
 /**
- * Don't set server YET
- * @OA\Server(
- *     url="http://localhost",
- *     description="L5 Swagger OpenApi dynamic host server"
- * )
- */
-
-/**
  * Common schemas
  *
  * @OA\Schema(

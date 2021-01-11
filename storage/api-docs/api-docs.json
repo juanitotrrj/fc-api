@@ -9,12 +9,6 @@
         },
         "version": "1.0.0"
     },
-    "servers": [
-        {
-            "url": "http://localhost",
-            "description": "L5 Swagger OpenApi dynamic host server"
-        }
-    ],
     "paths": {
         "/api/v1/forecasts/{id}/costs": {
             "get": {
